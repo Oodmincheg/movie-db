@@ -3,7 +3,7 @@ import styled from "styled-components";
 import MovieCard from "./MovieCard";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+//
 const Gallery = styled.div`
   max-width: 1100px;
   margin: 0 auto;

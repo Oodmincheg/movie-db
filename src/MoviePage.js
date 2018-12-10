@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import WatchListButton from "./AddWatchListButton";
 import Recomendations from "./Recomendations";
-
+//
 const Content = styled.div`
   display: flex;
 `;

@@ -3,7 +3,7 @@ import PopularMovies from "./PopularMovies";
 import { BrowserRouter, Route } from "react-router-dom";
 import MoviePage from "./MoviePage";
 import WatchList from "./WatchList";
-
+//
 class App extends React.Component {
   constructor(props) {
     super(props);
