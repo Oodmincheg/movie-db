@@ -3,7 +3,7 @@ import styled from "styled-components";
 import MovieCard from "./MovieCard";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-//
+
 const Gallery = styled.div`
   max-width: 1100px;
   margin: 0 auto;
@@ -28,10 +28,10 @@ class PopularMovies extends React.Component {
       genresLoaded: false
     };
     this.handleSearch = this.handleSearch.bind(this);
-    this.fetchMoreData = this.fetchMoreData.bind(this);
+    this.fetchMoreMovies = this.fetchMoreMovies.bind(this);
   }
 
-  fetchMoreData() {
+  fetchMoreMovies() {
     const urlPopularMovies =
       "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=98135c4d3cc392347281f8d007876760&language=en-US&page=" +
       this.state.pages;
@@ -87,7 +87,7 @@ class PopularMovies extends React.Component {
           </Header>
           <InfiniteScroll
             dataLength={this.state.movies.length}
-            next={this.fetchMoreData}
+            next={this.fetchMoreMovies}
             hasMore={true}
             //loader={<h4>Loading...</h4>}
           >
@@ -100,14 +100,9 @@ class PopularMovies extends React.Component {
                 )
                 .map(movie => (
                   <MovieCard
-                    allGenres={this.state.allGenres}
-                    genres={movie.genre_ids}
-                    id={movie.id}
                     key={movie.id}
-                    title={movie.title}
-                    imgSrc={`https://image.tmdb.org/t/p/w154/${
-                      movie.poster_path
-                    }`}
+                    allGenres={this.state.allGenres}
+                    movie={movie}
                   />
                 ))}
             </Gallery>

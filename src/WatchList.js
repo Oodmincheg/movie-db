@@ -1,6 +1,6 @@
 import React from "react";
 import WatchListButton from "./AddWatchListButton";
-//
+
 class WatchList extends React.Component {
   constructor(props) {
     super(props);
