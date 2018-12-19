@@ -1,6 +1,6 @@
 import React from "react";
 import PopularMovies from "./PopularMovies";
-import { BrowserRouter, Route } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 import MoviePage from "./MoviePage";
 import WatchList from "./WatchList";
 
@@ -41,7 +41,7 @@ class App extends React.Component {
       return <h2>Loading...</h2>;
     } else {
       return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <HashRouter>
           <div>
             <Route
               exact
@@ -55,7 +55,7 @@ class App extends React.Component {
             />
             <Route exact path="/watchlist" component={WatchList} />
           </div>
-        </BrowserRouter>
+        </HashRouter>
       );
     }
   }

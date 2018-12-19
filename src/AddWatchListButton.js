@@ -4,7 +4,6 @@ class WatchListButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      watchlist: {},
       inWatchList: false
     };
     this.deleteFromWatchList = this.deleteFromWatchList.bind(this);
