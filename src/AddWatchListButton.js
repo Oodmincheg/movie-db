@@ -8,6 +8,7 @@ class WatchListButton extends React.Component {
       inWatchList: false
     };
     this.deleteFromWatchList = this.deleteFromWatchList.bind(this);
+    this.moveToLocalStorage = this.moveToLocalStorage.bind(this);
     this.addToWatchList = this.addToWatchList.bind(this);
   }
   componentDidMount = () => {
@@ -18,8 +19,9 @@ class WatchListButton extends React.Component {
     } else {
       localStorage.setItem("watchlist", "{}");
     }
+    window.addEventListener("beforeunload", this.moveToLocalStorage);
   };
-  componentWillUnmount = () => {
+  moveToLocalStorage = () => {
     let watchlist = JSON.parse(localStorage.getItem("watchlist"));
     if (this.state.inWatchList && !(this.props.id in watchlist)) {
       watchlist[this.props.id] = this.props.title;
@@ -28,6 +30,10 @@ class WatchListButton extends React.Component {
       delete watchlist[this.props.id];
     }
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
+  };
+  componentWillUnmount = () => {
+    this.moveToLocalStorage();
+    window.removeEventListener("beforeunload", this.componentCleanup);
   };
   deleteFromWatchList() {
     this.setState({ inWatchList: false });

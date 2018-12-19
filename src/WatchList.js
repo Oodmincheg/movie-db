@@ -5,30 +5,24 @@ class WatchList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      watchList: []
+      watchList: {}
     };
   }
   componentDidMount() {
-    let watchList = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      let obj = {
-        id: localStorage.key(i),
-        title: localStorage.getItem(localStorage.key(i))
-      };
-      watchList.push(obj);
-    }
+    let watchList = JSON.parse(localStorage.getItem("watchlist"));
     this.setState({ watchList });
+    console.log(this.state.watchList);
   }
   render() {
-    if (localStorage.length === 0) {
+    if (JSON.stringify(this.state.watchList) == "{}") {
       return <h2>Watch list is empty</h2>;
     } else {
       return (
         <ul>
-          {this.state.watchList.map(movie => (
-            <li key={movie.id}>
-              {movie.title}{" "}
-              <WatchListButton id={movie.id} title={movie.title} />{" "}
+          {Object.keys(this.state.watchList).map(id => (
+            <li key={id}>
+              {this.state.watchList[id]}{" "}
+              <WatchListButton id={id} title={this.state.watchList.id} />{" "}
             </li>
           ))}
         </ul>
