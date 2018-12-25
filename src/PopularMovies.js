@@ -21,8 +21,8 @@ class PopularMovies extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pages: 2,
-      movies: this.props.movies,
+      pages: 1,
+      movies: [],
       searchString: "",
       allGenres: [],
       genresLoaded: false
@@ -50,6 +50,7 @@ class PopularMovies extends React.Component {
     this.setState({ searchString: target.value });
   }
   componentDidMount() {
+    this.fetchMoreData();
     //prettier-ignore
     const urlGenres ="https://api.themoviedb.org/3/genre/movie/list?api_key=98135c4d3cc392347281f8d007876760&language=en-US";
     fetch(urlGenres)
