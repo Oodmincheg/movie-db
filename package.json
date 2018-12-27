@@ -8,6 +8,7 @@
     "react-infinite-scroll-component": "^4.2.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
+    "redux": "^4.0.1",
     "styled-components": "^4.1.2"
   },
   "scripts": {
@@ -28,7 +29,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "gh-pages": "^2.0.1"
+    "gh-pages": "^2.0.1",
+    "react-redux": "^6.0.0"
   },
   "homepage": "https://oodmincheg.github.io/movie-db"
 }

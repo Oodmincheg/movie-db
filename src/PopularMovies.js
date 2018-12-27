@@ -3,6 +3,8 @@ import styled from "styled-components";
 import MovieCard from "./MovieCard";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { connect } from "react-redux";
+import { setSearchString } from "./actionCreators";
 
 const Gallery = styled.div`
   max-width: 1100px;
@@ -17,17 +19,17 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
 `;
+
 class PopularMovies extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       pages: 1,
       movies: [],
-      searchString: "",
       allGenres: [],
       genresLoaded: false
     };
-    this.handleSearch = this.handleSearch.bind(this);
+
     this.fetchMoreMovies = this.fetchMoreMovies.bind(this);
   }
 
@@ -46,9 +48,6 @@ class PopularMovies extends React.Component {
       );
   }
 
-  handleSearch({ target }) {
-    this.setState({ searchString: target.value });
-  }
   componentDidMount() {
     this.fetchMoreMovies();
     //prettier-ignore
@@ -82,8 +81,8 @@ class PopularMovies extends React.Component {
             <input
               type="text"
               placeholder="type title..."
-              value={this.state.searchString}
-              onChange={this.handleSearch}
+              value={this.props.searchString}
+              onChange={this.props.handleSearch}
             />
           </Header>
           <InfiniteScroll
@@ -97,7 +96,7 @@ class PopularMovies extends React.Component {
                 .filter(movie =>
                   movie.title
                     .toUpperCase()
-                    .includes(this.state.searchString.toUpperCase())
+                    .includes(this.props.searchString.toUpperCase())
                 )
                 .map(movie => (
                   <MovieCard
@@ -113,5 +112,13 @@ class PopularMovies extends React.Component {
     }
   }
 }
-
-export default PopularMovies;
+const mapStateToProps = state => ({ searchString: state.searchString });
+const mapDispatchToProps = dispatch => ({
+  handleSearch(event) {
+    dispatch(setSearchString(event.target.value));
+  }
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PopularMovies);
