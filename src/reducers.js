@@ -1,7 +1,8 @@
 import {
   SET_SEARCH_STRING,
   ADD_ALL_GENRES,
-  ADD_RECOMENDATIONS
+  ADD_RECOMENDATIONS,
+  ADD_MOVIE_DETAILS
 } from "./actions";
 import { combineReducers } from "redux";
 
@@ -22,15 +23,22 @@ const allGenres = (state = [], action) => {
 
 const recomendations = (state = [], action) => {
   if (action.type === ADD_RECOMENDATIONS) {
-    console.log("data-hyata???", action.payload);
     return action.payload.results;
+  }
+  return state;
+};
+
+const movieDetails = (state = {}, action) => {
+  if (action.type === ADD_MOVIE_DETAILS) {
+    return action.payload;
   }
   return state;
 };
 const rootReducer = combineReducers({
   searchString,
   allGenres,
-  recomendations
+  recomendations,
+  movieDetails
 });
 
 export default rootReducer;

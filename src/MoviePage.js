@@ -2,75 +2,52 @@ import React from "react";
 import styled from "styled-components";
 import WatchListButton from "./AddWatchListButton";
 import Recomendations from "./Recomendations";
+import { connect } from "react-redux";
+import { getMovieDetails } from "./actionCreators";
 
 const Content = styled.div`
   display: flex;
 `;
 
 class MoviePage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      movieDetails: {}
-    };
-  }
   componentDidMount() {
-    //prettier-ignore
-    const url = `https://api.themoviedb.org/3/movie/${this.props.movieId}?api_key=98135c4d3cc392347281f8d007876760&language=en-US`;
-    fetch(url)
-      .then(res => res.json())
-      .then(
-        data => {
-          this.setState({
-            isLoaded: true,
-            movieDetails: data
-          });
-        },
-        error => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      );
+    this.props.getMovieDetails();
   }
   render() {
-    if (!this.state.isLoaded) {
-      return <h2>Loading...</h2>;
+    if (Object.getOwnPropertyNames(this.props.movieDetails).length === 0) {
+      return <h1>Loading...</h1>;
     } else {
       return (
         <div>
           <header>
-            <h1>{this.state.movieDetails.title}</h1>
+            <h1>{this.props.movieDetails.title}</h1>
           </header>
           <Content>
             <aside>
               <img
                 src={`https://image.tmdb.org/t/p/w300/${
-                  this.state.movieDetails.poster_path
+                  this.props.movieDetails.poster_path
                 }`}
-                alt={`${this.state.movieDetails.title} poster`}
+                alt={`${this.props.movieDetails.title} poster`}
               />
             </aside>
             <content>
               <section>
                 <h3>Overview</h3>
-                <p>{this.state.movieDetails.overview}</p>
+                <p>{this.props.movieDetails.overview}</p>
               </section>
               <section>
                 <h3>Genre</h3>
                 <p>
-                  {this.state.movieDetails.genres
+                  {this.props.movieDetails.genres
                     .map(genre => genre.name)
                     .join(", ")}
                 </p>
               </section>
-              <Recomendations id={this.state.movieDetails.id} />
+              <Recomendations id={this.props.movieDetails.id} />
               <WatchListButton
-                id={this.state.movieDetails.id}
-                title={this.state.movieDetails.title}
+                id={this.props.movieDetails.id}
+                title={this.props.movieDetails.title}
               />
             </content>
           </Content>
@@ -79,5 +56,15 @@ class MoviePage extends React.Component {
     }
   }
 }
-
-export default MoviePage;
+const mapStateToProps = state => ({
+  movieDetails: state.movieDetails
+});
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  getMovieDetails() {
+    dispatch(getMovieDetails(ownProps.id));
+  }
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MoviePage);

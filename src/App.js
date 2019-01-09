@@ -16,7 +16,7 @@ class App extends React.Component {
             <Route
               exact
               path="/movie/:id"
-              render={props => <MoviePage movieId={props.match.params.id} />}
+              render={props => <MoviePage id={props.match.params.id} />}
             />
             <Route exact path="/watchlist" component={WatchList} />
           </div>

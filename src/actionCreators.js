@@ -1,7 +1,8 @@
 import {
   SET_SEARCH_STRING,
   ADD_ALL_GENRES,
-  ADD_RECOMENDATIONS
+  ADD_RECOMENDATIONS,
+  ADD_MOVIE_DETAILS
 } from "./actions";
 
 export function setSearchString(searchString) {
@@ -14,6 +15,10 @@ export function addAllGenres(allGenres) {
 
 export function addRecomendations(recomendations) {
   return { type: ADD_RECOMENDATIONS, payload: recomendations };
+}
+
+export function addMovieDetails(movieDetails) {
+  return { type: ADD_MOVIE_DETAILS, payload: movieDetails };
 }
 export function getAPIGenres() {
   const urlGenres =
@@ -39,6 +44,22 @@ export function getAPIRecomendations(id) {
       .then(
         data => {
           dispatch(addRecomendations(data));
+        },
+        error => {
+          console.log(error);
+        }
+      );
+}
+
+export function getMovieDetails(id) {
+  //prettier-ignore
+  const url = `https://api.themoviedb.org/3/movie/${id}?api_key=98135c4d3cc392347281f8d007876760&language=en-US`;
+  return dispatch =>
+    fetch(url)
+      .then(res => res.json())
+      .then(
+        data => {
+          dispatch(addMovieDetails(data));
         },
         error => {
           console.log(error);
