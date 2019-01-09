@@ -4,6 +4,7 @@ import MovieCard from "./MovieCard";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { connect } from "react-redux";
+import { getAPIGenres } from "./actionCreators";
 import { setSearchString } from "./actionCreators";
 
 const Gallery = styled.div`
@@ -25,9 +26,7 @@ class PopularMovies extends React.Component {
     super(props);
     this.state = {
       pages: 1,
-      movies: [],
-      allGenres: [],
-      genresLoaded: false
+      movies: []
     };
 
     this.fetchMoreMovies = this.fetchMoreMovies.bind(this);
@@ -50,27 +49,11 @@ class PopularMovies extends React.Component {
 
   componentDidMount() {
     this.fetchMoreMovies();
-    //prettier-ignore
-    const urlGenres ="https://api.themoviedb.org/3/genre/movie/list?api_key=98135c4d3cc392347281f8d007876760&language=en-US";
-    fetch(urlGenres)
-      .then(res => res.json())
-      .then(
-        data => {
-          this.setState({
-            genresLoaded: true,
-            allGenres: data.genres
-          });
-        },
-        error => {
-          this.setState({
-            genresLoaded: true,
-            error
-          });
-        }
-      );
+    if (this.props.allGenres.length) return;
+    this.props.getAPIGenres();
   }
   render() {
-    if (!this.state.genresLoaded) {
+    if (!this.props.allGenres.length) {
       return <h2>Loading...</h2>;
     } else {
       return (
@@ -101,7 +84,7 @@ class PopularMovies extends React.Component {
                 .map(movie => (
                   <MovieCard
                     key={movie.id}
-                    allGenres={this.state.allGenres}
+                    allGenres={this.props.allGenres}
                     movie={movie}
                   />
                 ))}
@@ -112,10 +95,18 @@ class PopularMovies extends React.Component {
     }
   }
 }
-const mapStateToProps = state => ({ searchString: state.searchString });
+const mapStateToProps = state => {
+  return {
+    searchString: state.searchString,
+    allGenres: state.allGenres
+  };
+};
 const mapDispatchToProps = dispatch => ({
   handleSearch(event) {
     dispatch(setSearchString(event.target.value));
+  },
+  getAPIGenres() {
+    dispatch(getAPIGenres());
   }
 });
 export default connect(
