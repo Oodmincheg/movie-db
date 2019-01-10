@@ -2,7 +2,8 @@ import {
   SET_SEARCH_STRING,
   ADD_ALL_GENRES,
   ADD_RECOMENDATIONS,
-  ADD_MOVIE_DETAILS
+  ADD_MOVIE_DETAILS,
+  ADD_POPULAR_MOVIES
 } from "./actions";
 import { combineReducers } from "redux";
 
@@ -34,11 +35,27 @@ const movieDetails = (state = {}, action) => {
   }
   return state;
 };
+
+const popularMovies = (state = [], action) => {
+  if (action.type === ADD_POPULAR_MOVIES) {
+    return state.concat(action.payload);
+  }
+  return state;
+};
+const page = (state = 1, action) => {
+  console.log("AAAAAA");
+  if (action.type === ADD_POPULAR_MOVIES) {
+    return state + 1;
+  }
+  return state;
+};
 const rootReducer = combineReducers({
   searchString,
   allGenres,
   recomendations,
-  movieDetails
+  movieDetails,
+  popularMovies,
+  page
 });
 
 export default rootReducer;

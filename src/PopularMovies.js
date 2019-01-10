@@ -4,8 +4,11 @@ import MovieCard from "./MovieCard";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { connect } from "react-redux";
-import { getAPIGenres } from "./actionCreators";
-import { setSearchString } from "./actionCreators";
+import {
+  getAPIGenres,
+  setSearchString,
+  getAPIPopularMovies
+} from "./actionCreators";
 
 const Gallery = styled.div`
   max-width: 1100px;
@@ -22,36 +25,18 @@ const Header = styled.header`
 `;
 
 class PopularMovies extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pages: 1,
-      movies: []
-    };
+  fetchMorePopularMovies = this.fetchMorePopularMovies.bind(this);
 
-    this.fetchMoreMovies = this.fetchMoreMovies.bind(this);
-  }
-
-  fetchMoreMovies() {
-    const urlPopularMovies =
-      "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=98135c4d3cc392347281f8d007876760&language=en-US&page=" +
-      this.state.pages;
-
-    fetch(urlPopularMovies)
-      .then(res => res.json())
-      .then(data =>
-        this.setState({
-          movies: this.state.movies.concat(data.results),
-          pages: this.state.pages + 1
-        })
-      );
+  fetchMorePopularMovies() {
+    this.props.getAPIPopularMovies(this.props.page);
   }
 
   componentDidMount() {
-    this.fetchMoreMovies();
+    this.fetchMorePopularMovies();
     if (this.props.allGenres.length) return;
     this.props.getAPIGenres();
   }
+
   render() {
     if (!this.props.allGenres.length) {
       return <h2>Loading...</h2>;
@@ -69,13 +54,13 @@ class PopularMovies extends React.Component {
             />
           </Header>
           <InfiniteScroll
-            dataLength={this.state.movies.length}
-            next={this.fetchMoreMovies}
+            dataLength={this.props.popularMovies.length}
+            next={this.fetchMorePopularMovies}
             hasMore={true}
             //loader={<h4>Loading...</h4>}
           >
             <Gallery>
-              {this.state.movies
+              {this.props.popularMovies
                 .filter(movie =>
                   movie.title
                     .toUpperCase()
@@ -96,9 +81,12 @@ class PopularMovies extends React.Component {
   }
 }
 const mapStateToProps = state => {
+  console.log("movies!!!", state.popularMovies);
   return {
     searchString: state.searchString,
-    allGenres: state.allGenres
+    allGenres: state.allGenres,
+    popularMovies: state.popularMovies,
+    page: state.page
   };
 };
 const mapDispatchToProps = dispatch => ({
@@ -107,6 +95,9 @@ const mapDispatchToProps = dispatch => ({
   },
   getAPIGenres() {
     dispatch(getAPIGenres());
+  },
+  getAPIPopularMovies(page) {
+    dispatch(getAPIPopularMovies(page));
   }
 });
 export default connect(

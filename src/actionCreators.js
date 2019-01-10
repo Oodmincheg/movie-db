@@ -2,7 +2,8 @@ import {
   SET_SEARCH_STRING,
   ADD_ALL_GENRES,
   ADD_RECOMENDATIONS,
-  ADD_MOVIE_DETAILS
+  ADD_MOVIE_DETAILS,
+  ADD_POPULAR_MOVIES
 } from "./actions";
 
 export function setSearchString(searchString) {
@@ -20,6 +21,31 @@ export function addRecomendations(recomendations) {
 export function addMovieDetails(movieDetails) {
   return { type: ADD_MOVIE_DETAILS, payload: movieDetails };
 }
+export function addPopularMovies(movies) {
+  console.log("MOVIES in actionCreator", movies);
+  return { type: ADD_POPULAR_MOVIES, payload: movies };
+}
+
+export function getAPIPopularMovies(page) {
+  console.log("page in action creator", page);
+  const urlPopularMovies =
+    "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=98135c4d3cc392347281f8d007876760&language=en-US&page=" +
+    page;
+
+  console.log("url", urlPopularMovies);
+  return dispatch =>
+    fetch(urlPopularMovies)
+      .then(res => res.json())
+      .then(
+        data => {
+          dispatch(addPopularMovies(data.results));
+        },
+        error => {
+          console.log(error);
+        }
+      );
+}
+
 export function getAPIGenres() {
   const urlGenres =
     "https://api.themoviedb.org/3/genre/movie/list?api_key=98135c4d3cc392347281f8d007876760&language=en-US";
