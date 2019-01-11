@@ -5,7 +5,50 @@ import {
   ADD_MOVIE_DETAILS,
   ADD_POPULAR_MOVIES
 } from "./actions";
+//reducers
+export const searchString = (state = "", action) => {
+  if (action.type === SET_SEARCH_STRING) {
+    return action.payload;
+  }
+  return state;
+};
 
+export const allGenres = (state = [], action) => {
+  if (action.type === ADD_ALL_GENRES) {
+    return action.payload.genres;
+  }
+  return state;
+};
+
+export const recomendations = (state = [], action) => {
+  if (action.type === ADD_RECOMENDATIONS) {
+    return action.payload.results;
+  }
+  return state;
+};
+
+export const movieDetails = (state = {}, action) => {
+  if (action.type === ADD_MOVIE_DETAILS) {
+    return action.payload;
+  }
+  return state;
+};
+
+export const popularMovies = (state = [], action) => {
+  if (action.type === ADD_POPULAR_MOVIES) {
+    return state.concat(action.payload);
+  }
+  return state;
+};
+export const page = (state = 1, action) => {
+  console.log("AAAAAA");
+  if (action.type === ADD_POPULAR_MOVIES) {
+    return state + 1;
+  }
+  return state;
+};
+
+//actions
 export function setSearchString(searchString) {
   return { type: SET_SEARCH_STRING, payload: searchString };
 }

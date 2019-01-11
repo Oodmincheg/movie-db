@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getAPIRecomendations } from "./actionCreators";
+import { getAPIRecomendations } from "./actionsAndReducers";
 
 class Recomendations extends React.Component {
   componentDidMount() {

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import WatchListButton from "./AddWatchListButton";
 import Recomendations from "./Recomendations";
 import { connect } from "react-redux";
-import { getMovieDetails } from "./actionCreators";
+import { getMovieDetails } from "./actionsAndReducers";
 
 const Content = styled.div`
   display: flex;

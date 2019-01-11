@@ -8,7 +8,7 @@ import {
   getAPIGenres,
   setSearchString,
   getAPIPopularMovies
-} from "./actionCreators";
+} from "./actionsAndReducers";
 
 const Gallery = styled.div`
   max-width: 1100px;
