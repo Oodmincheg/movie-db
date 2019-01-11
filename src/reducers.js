@@ -1,19 +1,20 @@
 import {
-  SET_SEARCH_STRING,
+  //SET_SEARCH_STRING,
   ADD_ALL_GENRES,
   ADD_RECOMENDATIONS,
   ADD_MOVIE_DETAILS,
   ADD_POPULAR_MOVIES
 } from "./actions";
 import { combineReducers } from "redux";
+import { searchString } from "./actionCreators";
 
-const searchString = (state = "", action) => {
+/*const searchString = (state = "", action) => {
   //return Object.assign({}, state, { searchString: action.payload });
   if (action.type === SET_SEARCH_STRING) {
     return action.payload;
   }
   return state;
-};
+};*/
 
 const allGenres = (state = [], action) => {
   if (action.type === ADD_ALL_GENRES) {

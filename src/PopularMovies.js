@@ -32,8 +32,8 @@ class PopularMovies extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchMorePopularMovies();
     if (this.props.allGenres.length) return;
+    this.fetchMorePopularMovies();
     this.props.getAPIGenres();
   }
 
