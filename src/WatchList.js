@@ -40,7 +40,9 @@ class WatchList extends React.Component {
     if (JSON.stringify(this.state.watchList) == '{}') {
       return (
         <Wraper>
-          <h2>Watch list is empty</h2>
+          <h2>
+            Watch list is empty<Link to="/">(main page)</Link>
+          </h2>
         </Wraper>
       );
     } else {
