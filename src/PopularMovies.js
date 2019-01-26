@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import MovieCard from "./MovieCard";
-import { Link } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { connect } from "react-redux";
+import React from 'react';
+import styled from 'styled-components';
+import MovieCard from './MovieCard';
+import { Link } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { connect } from 'react-redux';
 import {
   getAPIGenres,
   setSearchString,
   getAPIPopularMovies
-} from "./actionsAndReducers";
+} from './actionsAndReducers';
 
 const Gallery = styled.div`
   max-width: 1100px;
@@ -17,7 +17,12 @@ const Gallery = styled.div`
   flex-wrap: wrap;
 `;
 const Header = styled.header`
-  margin: 0 auto;
+  & h1 {
+    font-size: 50px;
+    color: darkblue;
+  }
+  font-family: 'Inconsolata', monospace;
+  margin: 20px auto;
   max-width: 1200px;
   display: flex;
   justify-content: space-between;
@@ -45,13 +50,16 @@ class PopularMovies extends React.Component {
         <div className="content">
           <Header>
             <Link to="/watchlist">Watch list</Link>
-            <h1>Movies</h1>
-            <input
-              type="text"
-              placeholder="type title..."
-              value={this.props.searchString}
-              onChange={this.props.handleSearch}
-            />
+            <h1>Popular Movies</h1>
+            <div>
+              <span>Search:</span>
+              <input
+                type="text"
+                placeholder="type title..."
+                value={this.props.searchString}
+                onChange={this.props.handleSearch}
+              />
+            </div>
           </Header>
           <InfiniteScroll
             dataLength={this.props.popularMovies.length}
@@ -81,7 +89,7 @@ class PopularMovies extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  console.log("movies!!!", state.popularMovies);
+  console.log('movies!!!', state.popularMovies);
   return {
     searchString: state.searchString,
     allGenres: state.allGenres,

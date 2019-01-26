@@ -1,5 +1,10 @@
-import React from "react";
+import React from 'react';
+import styled from 'styled-components';
 //
+const Button = styled.button`
+  font-family: 'Inconsolata', monospace;
+  border: 2px solid lightblue;
+`;
 class WatchListButton extends React.Component {
   constructor(props) {
     super(props);
@@ -11,28 +16,28 @@ class WatchListButton extends React.Component {
     this.addToWatchList = this.addToWatchList.bind(this);
   }
   componentDidMount = () => {
-    if (localStorage.getItem("watchlist")) {
-      let watchlist = JSON.parse(localStorage.getItem("watchlist"));
+    if (localStorage.getItem('watchlist')) {
+      let watchlist = JSON.parse(localStorage.getItem('watchlist'));
       this.setState({ watchlist });
       this.setState({ inWatchList: Boolean(this.props.id in watchlist) });
     } else {
-      localStorage.setItem("watchlist", "{}");
+      localStorage.setItem('watchlist', '{}');
     }
-    window.addEventListener("beforeunload", this.moveToLocalStorage);
+    window.addEventListener('beforeunload', this.moveToLocalStorage);
   };
   moveToLocalStorage = () => {
-    let watchlist = JSON.parse(localStorage.getItem("watchlist"));
+    let watchlist = JSON.parse(localStorage.getItem('watchlist'));
     if (this.state.inWatchList && !(this.props.id in watchlist)) {
       watchlist[this.props.id] = this.props.title;
     }
     if (!this.state.inWatchList && this.props.id in watchlist) {
       delete watchlist[this.props.id];
     }
-    localStorage.setItem("watchlist", JSON.stringify(watchlist));
+    localStorage.setItem('watchlist', JSON.stringify(watchlist));
   };
   componentWillUnmount = () => {
     this.moveToLocalStorage();
-    window.removeEventListener("beforeunload", this.componentCleanup);
+    window.removeEventListener('beforeunload', this.componentCleanup);
   };
   deleteFromWatchList() {
     this.setState({ inWatchList: false });
@@ -43,12 +48,12 @@ class WatchListButton extends React.Component {
   render() {
     if (this.state.inWatchList) {
       return (
-        <button onClick={this.deleteFromWatchList}>
+        <Button onClick={this.deleteFromWatchList}>
           Delete from watchlist
-        </button>
+        </Button>
       );
     } else {
-      return <button onClick={this.addToWatchList}>Add to watch list</button>;
+      return <Button onClick={this.addToWatchList}>Add to watch list</Button>;
     }
   }
 }

@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { getAPIRecomendations } from "./actionsAndReducers";
+import React from 'react';
+import { connect } from 'react-redux';
+import { getAPIRecomendations } from './actionsAndReducers';
 
 class Recomendations extends React.Component {
   componentDidMount() {
@@ -9,12 +9,12 @@ class Recomendations extends React.Component {
 
   render() {
     return (
-      <section>
-        <h3>Recomendations</h3>
+      <div>
+        <h3>Recomendations:</h3>
         {this.props.recomendations
           .map(movie => movie.original_title)
-          .join(", ")}
-      </section>
+          .join(', ')}
+      </div>
     );
   }
 }
@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = (dispatch, ownProps) => ({
   getAPIRecomendations() {
-    console.log("here recomendations", ownProps);
+    console.log('here recomendations', ownProps);
     dispatch(getAPIRecomendations(ownProps.id));
   }
 });
