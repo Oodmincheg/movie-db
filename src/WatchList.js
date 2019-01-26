@@ -37,8 +37,22 @@ class WatchList extends React.Component {
     console.log(this.state.watchList);
   }
   render() {
+<<<<<<< HEAD
     if (JSON.stringify(this.state.watchList) == '{}') {
       return <h2>Watch list is empty</h2>;
+||||||| merged common ancestors
+    if (JSON.stringify(this.state.watchList) == "{}") {
+      return <h2>Watch list is empty</h2>;
+=======
+    if (JSON.stringify(this.state.watchList) == '{}') {
+      return (
+        <Wraper>
+          <h2>
+            Watch list is empty<Link to="/">(main page)</Link>
+          </h2>
+        </Wraper>
+      );
+>>>>>>> master
     } else {
       return (
         <Wraper>
