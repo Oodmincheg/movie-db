@@ -1,4 +1,5 @@
 import React from 'react';
+import Scroll from './ScrollComponent';
 import styled from 'styled-components';
 import MovieCard from './MovieCard';
 import { Link } from 'react-router-dom';
@@ -61,6 +62,7 @@ class PopularMovies extends React.Component {
               />
             </div>
           </Header>
+          <Scroll scrollStepInPx="50" delayInMs="16.66" />
           <InfiniteScroll
             dataLength={this.props.popularMovies.length}
             next={this.fetchMorePopularMovies}

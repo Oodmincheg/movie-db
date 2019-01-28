@@ -40,7 +40,7 @@ const MovieCard = props => {
   return (
     <Wrapper className="movie-card">
       <Image src={imgSrc} alt={title} />
-      <Link to={`/movie/${id}`} style={{ 'text-decoration': 'none' }}>
+      <Link to={`/movie/${id}`} style={{ textDecoration: 'none' }}>
         <H2>{title}</H2>
       </Link>
 
