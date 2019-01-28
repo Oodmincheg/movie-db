@@ -5,8 +5,8 @@ import WatchListButton from './AddWatchListButton';
 
 const Wrapper = styled.div`
   font-family: 'Inconsolata', monospace;
-  width: 40%;
-  margin: 0 4% 20px 4%;
+  width: 30%;
+  margin: 0 5px 20px 5px;
   border: 2px solid lightblue;
   border-radius: 4px;
   text-align: center;
