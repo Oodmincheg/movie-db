@@ -26,17 +26,24 @@ class ScrollButton extends React.Component {
   }
 
   render() {
-    return (
-      <button
-        title="Back to top"
-        className="scroll"
-        onClick={() => {
-          this.scrollToTop();
-        }}
-      >
-        <span className="arrow-up">^</span>
-      </button>
-    );
+    if (
+      document.body.scrollTop > 20 ||
+      document.documentElement.scrollTop > 20
+    ) {
+      return (
+        <button
+          title="Back to top"
+          className="scroll"
+          onClick={() => {
+            this.scrollToTop();
+          }}
+        >
+          <span className="arrow-up">^</span>
+        </button>
+      );
+    } else {
+      return '';
+    }
   }
 }
 

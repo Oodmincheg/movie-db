@@ -22,12 +22,16 @@ const Header = styled.header`
     font-size: 50px;
     color: darkblue;
   }
+  text-align: center;
   font-family: 'Inconsolata', monospace;
   margin: 20px auto;
   max-width: 1200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
 `;
 
 class PopularMovies extends React.Component {
