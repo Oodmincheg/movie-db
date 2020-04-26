@@ -1,6 +1,6 @@
   ## Today popular movies from [The Movie DB](https://www.themoviedb.org)
   
- ![](https://github.com/Oodmincheg/movie-db/image-readme.gif)
+ ![](https://github.com/Oodmincheg/movie-db/blob/review/readme-image.gif)
  
  Display popular movies with using API [The Movie DB](https://www.themoviedb.org).  
  
